@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Resources
+#resource.h
+#LearningDirectX.rc
+technology-icon-png-transparent.ico
+
 # User-specific files
 *.rsuser
 *.suo
