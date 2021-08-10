@@ -1,9 +1,24 @@
 #pragma once
 
+#include <sstream>
 #include "CustomWin.h"
+#include "BaseException.h"
 
 class Window
 {
+public:
+	class Exception : public BaseException
+	{
+	public:
+		Exception(int line, const char* file, HRESULT hr) noexcept; // HRESULT is part of windows errors
+		const char* what() const noexcept override;
+		virtual const char* GetType() const noexcept;
+		static std::string TranslateErrorCode(HRESULT hr) noexcept; // Takes windows errors and gives description
+		HRESULT GetErrorCode() const noexcept; // hr getter
+		std::string GetErrorString() const noexcept;
+	private:
+		HRESULT hr;
+	};
 
 private:
 	// singleton manages registration/cleanup of window class

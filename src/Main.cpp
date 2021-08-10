@@ -3,18 +3,33 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow)
 {
-	Window window(1024, 720, L"Ventana prueba");
+	try {
+		Window window(1024, 720, L"Ventana prueba");
 
-	// Run the message loop.
+		// Run the message loop.
 
-	MSG msg = { };
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		MSG msg = { };
+		while (GetMessage(&msg, NULL, 0, 0))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		return 0;
 	}
-
-	return 0;
+	catch (const BaseException& e)
+	{
+		MessageBox(NULL, (LPWSTR)e.what(), (LPWSTR)e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (const std::exception& e)
+	{
+		MessageBox(NULL, (LPWSTR)e.what(), L"Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (...)
+	{
+		MessageBox(NULL, L"No details available", L"Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	return -1;
 }
 
 
